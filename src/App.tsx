@@ -49,7 +49,13 @@ const App = () =>{
                   <h1 className="text-xl pb-4">Redes Neurais</h1>
                   {
                     conteudo.map((item) => (
-                        <p key={item.id}>{item.content}</p>
+                      item.content[0] === "1"
+                      ? <p key={item.id} className="text-lg mb-1">{item.content.slice(1)}</p>
+                      : item.content[0] === "2"
+                      ? <div key={item.id} className="flex justify-center">
+                          <img className="max-h-64 mt-4" key={item.id} src={item.content.slice(1)} alt="imagem generica" />
+                        </div>
+                      : <p key={item.id} className="text-justify">{item.content}</p>
                     ))
                   }
                 </div>

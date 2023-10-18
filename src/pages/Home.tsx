@@ -1,6 +1,7 @@
 import NavBar from '../components/navbar';
 import Rodape from '../components/footer';
 import { Link } from 'react-router-dom';
+import ClassificarFruta from '../content/classificaFruta';
 import RouteContent from '../routes/Content';
 
 const Home = () =>{
@@ -16,6 +17,7 @@ const Home = () =>{
                   <div className="min-w-96 p-8 grow">
                     <h1 className="text-xl pb-4">Redes Neurais</h1>
                     <RouteContent />
+                    <ClassificarFruta />
                   </div>
                   <div className="p-8">
                     <h1 className="text-xl pb-4">Redes Neurais</h1>

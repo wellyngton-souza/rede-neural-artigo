@@ -3,6 +3,7 @@ import Rodape from '../components/footer';
 import { Link } from 'react-router-dom';
 import ClassificarFruta from '../content/classificaFruta';
 import RouteContent from '../routes/Content';
+import GameDino from '../content/gameDino/game';
 
 const Home = () =>{
   return (
@@ -18,6 +19,7 @@ const Home = () =>{
                     <h1 className="text-xl pb-4">Redes Neurais</h1>
                     <RouteContent />
                     <ClassificarFruta />
+                    <GameDino />
                   </div>
                   <div className="p-8">
                     <h1 className="text-xl pb-4">Redes Neurais</h1>

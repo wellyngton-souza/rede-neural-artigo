@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 
 import Home from '../pages/Home';
 import "../styles/tailwind.css";
+import "../styles/scroll.css";
 
 const App = () =>{
   return (

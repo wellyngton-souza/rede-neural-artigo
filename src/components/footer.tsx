@@ -1,6 +1,10 @@
-const Rodape = () =>{
+interface ThemeProps{
+    theme: string
+}
+
+const Rodape: React.FC<ThemeProps> = ({ theme }) =>{
     return(
-        <div className="h-16 flex items-center justify-center text-white px-8 bg-gray-800">
+        <div className={`h-16 flex items-center justify-center px-8 ${theme}`}>
             <p>Rodape</p>
         </div>
     )

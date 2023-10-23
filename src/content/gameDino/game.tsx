@@ -2,8 +2,6 @@ import React, { useRef, useState, useEffect } from "react";
 import img_dino from "../../assets/gameDino/Dino_Surf.gif";
 import img_cacto from "../../assets/gameDino/cacto.png";
 
-import "../../styles/tailwind.css";
-
 const GameDino = () =>{
     const dino = useRef() as React.MutableRefObject<HTMLImageElement>;
     const cacto = useRef() as React.MutableRefObject<HTMLImageElement>;

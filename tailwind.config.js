@@ -2,17 +2,17 @@
 module.exports = {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/content/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
       backgroundColor: {
-        'dark': '#112',
-        'light': '#999'
+        'dark': '#112'
       },
       textColor: {
-        'dark': '#ccd',
+        'dark': '#6b7280'
       },
     },
   },

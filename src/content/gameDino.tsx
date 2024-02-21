@@ -1,13 +1,15 @@
 import React, { useRef, useState, useEffect } from "react";
-import img_dino from "../../assets/gameDino/Dino_Surf.gif";
-import img_cacto from "../../assets/gameDino/cacto.png";
+
+import img_dino from "../assets/gameDino/Dino_Surf.gif";
+import img_cacto from "../assets/gameDino/cacto.png";
 
 const GameDino = () =>{
     const dino = useRef() as React.MutableRefObject<HTMLImageElement>;
     const cacto = useRef() as React.MutableRefObject<HTMLImageElement>;
 
-    const [pulo, setPulo] = useState(false);
-    const [cair, setCair] = useState(false);
+    let pulo = false;
+    let cair = false;
+
     const [speedCacto, setspeedCacto] = useState(20);
     const [quadradoWidth, setQuadradoWidth] = useState(20);
     const [pontos, setPontos] = useState(0);
@@ -18,11 +20,12 @@ const GameDino = () =>{
     const [gameStart, setGameStart] = useState(true);
 
     const pegarPosit = (direcao: string, elemento: React.MutableRefObject<HTMLImageElement>): number => {
-        const estiloComputado = getComputedStyle(elemento.current);
+        const estiloComputado = getComputedStyle(elemento.current);;
         return parseFloat(estiloComputado.getPropertyValue(direcao));
     }
     
     const pular = () =>{
+        console.log(pulo);
         if(pulo){
             let topDino = pegarPosit("top", dino);
             dino.current!.style.top = (topDino - alturaPulo) + "px";
@@ -31,6 +34,7 @@ const GameDino = () =>{
             dino.current!.style.top = (topDino + alturaPulo) + "px";
         } else{
             dino.current!.style.top = "70%";
+            cacto.current!.style.top = "70%";
         }
     }
         
@@ -47,15 +51,15 @@ const GameDino = () =>{
     }
     
     const ativaPulo = () =>{
-        setPulo(true);
+        pulo = true
         setTimeout(()=>{
-            setPulo(false);
-            setCair(true);
+            pulo = false;
+            cair = true;
             setTimeout(()=>{
-                setCair(false);
+                cair = false;
             }, duracaoPulo);
         }, duracaoPulo);
-        }
+    }
         
     const pontuacao = () =>{
         let leftDino = pegarPosit("left", dino);
@@ -65,11 +69,11 @@ const GameDino = () =>{
     }
 
     const mudarTudo = (e: any) =>{
-        setQuadradoWidth(e / 3);
-        dino.current!.style.height = e + "px";
-        dino.current!.style.width = e + "px";
-        cacto.current!.style.height = e + "px";
-        cacto.current!.style.width = e + "px";
+        setQuadradoWidth(e.target.value / 3);
+        dino.current!.style.height = e.target.value + "px";
+        dino.current!.style.width = e.target.value + "px";
+        cacto.current!.style.height = e.target.value + "px";
+        cacto.current!.style.width = e.target.value + "px";
     }
 
     const morte = () =>{
@@ -88,48 +92,56 @@ const GameDino = () =>{
     
     useEffect(() => {
         document.addEventListener("keydown", (e) => {
-          if (pulo || cair) {
-            return;
-          }
-    
-          if (e.key === ' ') {
-            ativaPulo();
-          }
+            if (pulo || cair) {
+                return;
+            }
+        
+            if (e.key === " ") {
+                ativaPulo();
+            }
         });
     
         const intervalId = setInterval(() => {
-          if (gameStart) {
-            pular();
-            cactoAndar();
-            pontuacao();
-            morte();
-          }
-        }, 100);
+                pular();
+                cactoAndar();
+                pontuacao();
+                morte();
+        }, 20);
     
         return () => {
-          clearInterval(intervalId);
+            clearInterval(intervalId);
         };
-    }, []);
+    }, [gameStart]);
 
     return(
-        <section>
-            <div className="w-full h-96 relative border border-black">
+        <section className="flex flex-col gap-8">
+            <div className="w-full h-96 relative overflow-hidden bg-white">
                 {distancia >= 0 && (
                     <div>
                         Distancia: {distancia.toFixed(0)} <br />
                         Pontuação: {pontos}
                     </div>
                 )}
-                {gameStart && <p id="FimJogo">Fim de Jogo</p>}
-                <img className="w-16 h-16 absolute" src={img_dino} alt="img_game" ref={dino} />
-                <img className="w-16 h-16 absolute" src={img_cacto} alt="img_game" ref={cacto} />
+                {gameStart && <p>Fim de Jogo</p>}
+                <img
+                    className="w-16 h-16 absolute"
+                    src={img_dino}
+                    alt="img_game"
+                    ref={dino}
+                />
+                <img
+                    className="w-16 h-16 absolute"
+                    src={img_cacto}
+                    alt="img_game"
+                    ref={cacto}
+                />
             </div>
             <div className="flex">
                 <div>
-                    <p>Speed Dino: <input type="range" onChange={(e) => setspeedCacto(parseInt(e.target.value))} id="1" max="50" /></p>
-                    <p>altura Pulo: <input type="range" onChange={(e) => setAlturaPulo(parseInt(e.target.value))} id="2" max="20" /></p>
-                    <p>Duração Pulo: <input type="range" onChange={(e) => setDuracaoPulo(parseInt(e.target.value))} id="3" max="1000" /></p>
-                    <p>Tamanho: <input type="range" onChange={(e) => mudarTudo(e)} id="4" max="200" /></p>
+                    <p>Speed Dino: <input type="range" onChange={(e) => setspeedCacto(parseInt(e.target.value))} max="50" /></p>
+                    <p>altura Pulo: <input type="range" onChange={(e) => setAlturaPulo(parseInt(e.target.value))} max="20" /></p>
+                    <p>Duração Pulo: <input type="range" onChange={(e) => setDuracaoPulo(parseInt(e.target.value))} max="1000" /></p>
+                    <p>Tamanho: <input type="range" onChange={(e) => mudarTudo(e)} max="200" /></p>
                 </div>
                 {
                     gameStart &&

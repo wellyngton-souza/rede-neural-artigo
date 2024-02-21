@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 
 import Home from '../pages/Home';
-import "../styles/tailwind.css";
 import "../styles/scroll.css";
+import "../styles/tailwind.css";
 
 const App = () =>{
   return (
